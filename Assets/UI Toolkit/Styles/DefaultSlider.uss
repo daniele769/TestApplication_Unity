@@ -1,0 +1,27 @@
+.defaultSlider {
+    color: rgb(255, 255, 255);
+    font-size: 9px;
+    -unity-font-style: normal;
+    -unity-text-outline-width: 0;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    -unity-text-align: middle-left;
+}
+
+.defaultSlider:hover {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+}
+
+.defaultSlider:focus {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+}
+
+.defaultSlider:disabled {
+    color: rgb(255, 255, 255);
+    font-size: 9px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+}

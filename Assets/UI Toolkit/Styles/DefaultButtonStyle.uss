@@ -1,0 +1,68 @@
+.defaultButtonStyle {
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-bottom-left-radius: 17px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    align-content: auto;
+    align-self: center;
+    justify-content: center;
+    align-items: stretch;
+    background-color: rgb(31, 31, 31);
+    color: rgb(255, 255, 255);
+    font-size: 9px;
+    -unity-font-style: bold;
+    white-space: normal;
+    min-width: auto;
+    width: 100%;
+    transition-property: all;
+    transition-timing-function: ease;
+    transition-duration: 0.2s;
+}
+
+.defaultButtonStyle:focus {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+}
+
+.defaultButtonStyle:hover {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+}
+
+.defaultButtonStyle:active {
+    background-color: rgb(43, 42, 42);
+    color: rgb(99, 96, 96);
+}
+
+.defaultButtonStyle:disabled {
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-bottom-left-radius: 17px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    align-content: auto;
+    align-self: center;
+    justify-content: center;
+    align-items: stretch;
+    background-color: rgb(31, 31, 31);
+    color: rgb(135, 135, 135);
+    font-size: 9px;
+    -unity-font-style: bold;
+    white-space: normal;
+    min-width: auto;
+    width: 100%;
+    transition-property: all;
+    transition-timing-function: ease;
+    transition-duration: 0.2s;
+}

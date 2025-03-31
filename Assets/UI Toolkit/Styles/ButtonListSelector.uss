@@ -1,0 +1,68 @@
+.buttonListSelector {
+    align-self: center;
+    align-content: auto;
+    min-width: 3%;
+    width: auto;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    -unity-font-style: bold;
+    font-size: 9px;
+    text-overflow: clip;
+    color: rgb(10, 10, 10);
+    min-height: auto;
+    height: auto;
+}
+
+.buttonListSelector:active {
+    -unity-font-style: bold;
+    font-size: 14px;
+    text-overflow: clip;
+    color: rgb(67, 65, 65);
+}
+
+.labelListSelector {
+    min-width: 40%;
+    font-size: 9px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-left;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.valueListSelector {
+    min-width: 10%;
+    font-size: 9px;
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.listSelector {
+    flex-grow: 1;
+    flex-direction: row;
+    color: rgb(255, 249, 249);
+    height: 30px;
+    max-height: none;
+}
+
+.listSelector:hover {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+}
+
+.listSelector:focus {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+}
+
+.listSelector:disabled {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 249, 249);
+}

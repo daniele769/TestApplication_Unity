@@ -1,0 +1,25 @@
+.defaultDropdown {
+    transition-duration: 0.2s;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    font-size: 14px;
+    -unity-text-outline-width: 0.5px;
+}
+
+.defaultDropdown:focus {
+    background-color: rgb(144, 144, 144);
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.defaultDropdown:hover {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}

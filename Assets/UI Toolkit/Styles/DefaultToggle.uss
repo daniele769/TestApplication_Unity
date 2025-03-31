@@ -1,0 +1,17 @@
+.defaultToggle {
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+    -unity-text-outline-width: 0;
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    font-size: 9px;
+}
+
+.defaultToggle:hover {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+}
+
+.defaultToggle:focus {
+    background-color: rgb(144, 144, 144);
+    color: rgb(0, 0, 0);
+}

@@ -1,0 +1,7 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:Template name="ListSelector" src="project://database/Assets/UI%20Toolkit/View/Elements/ListSelector.uxml?fileID=9197481963319205126&amp;guid=d7a5fa71e8135ab4886d6a9b3e0f2ace&amp;type=3#ListSelector" />
+    <engine:VisualElement style="flex-grow: 1;">
+        <engine:Button text="Button" />
+    </engine:VisualElement>
+    <engine:Instance template="ListSelector" />
+</engine:UXML>

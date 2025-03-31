@@ -1,0 +1,40 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:Template name="ListSelector" src="project://database/Assets/UI%20Toolkit/View/Elements/ListSelector.uxml?fileID=9197481963319205126&amp;guid=d7a5fa71e8135ab4886d6a9b3e0f2ace&amp;type=3#ListSelector" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/DefaultButtonStyle.uss?fileID=7433441132597879392&amp;guid=ec487a2abbe59534eaac2fd037a3d170&amp;type=3#DefaultButtonStyle" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/DefaultDropdown.uss?fileID=7433441132597879392&amp;guid=711d0edd2f1b77843b13d2958ee4224d&amp;type=3#DefaultDropdown" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/DefaultToggle.uss?fileID=7433441132597879392&amp;guid=204a6d5a27bb0a844b25034a73d84a03&amp;type=3#DefaultToggle" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/DefaultSlider.uss?fileID=7433441132597879392&amp;guid=df32b9594c268774fa8a18a47162e958&amp;type=3#DefaultSlider" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/ButtonListSelector.uss?fileID=7433441132597879392&amp;guid=1147c4252fdd04643a721494e98a1624&amp;type=3#ButtonListSelector" />
+    <engine:VisualElement style="flex-grow: 1; background-color: rgb(36, 33, 33);">
+        <engine:VisualElement style="flex-grow: 1; flex-direction: column; align-self: flex-start; align-content: center; justify-content: flex-start; align-items: stretch; min-width: 10%; min-height: auto; height: auto; flex-wrap: nowrap; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
+            <engine:Button text="Back" name="BackButton" selectable="true" double-click-selects-word="false" triple-click-selects-line="false" focusable="true" class="defaultButtonStyle" style="width: auto; min-width: 7%; min-height: auto; height: auto;" />
+        </engine:VisualElement>
+        <engine:ScrollView focusable="false" vertical-scroller-visibility="AlwaysVisible" name="ScrollView" style="height: 90%; align-self: auto; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+            <engine:Label text="General" double-click-selects-word="false" triple-click-selects-line="false" style="font-size: 9px; color: rgb(253, 253, 253); -unity-font-style: bold;" />
+            <engine:GroupBox name="GeneralGroup" style="padding-top: 5px; padding-right: 0; padding-left: 20px;">
+                <engine:Instance template="ListSelector" name="ScreenModeSelector" focusable="true" enabled="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+                <engine:Instance template="ListSelector" name="ResolutionSelector" focusable="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+                <engine:Instance template="ListSelector" name="FramerateSelector" focusable="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+                <engine:Toggle label="VSync" enabled="true" name="VSync" class="defaultToggle" />
+            </engine:GroupBox>
+            <engine:Label text="Audio" double-click-selects-word="false" triple-click-selects-line="false" style="font-size: 9px; color: rgb(253, 253, 253); -unity-font-style: bold;" />
+            <engine:GroupBox name="AudioGroup" style="padding-left: 20px;">
+                <engine:Slider label="Master" value="0.75" high-value="1" name="MasterAudio" low-value="0.0001" show-input-field="false" enabled="true" class="defaultSlider" />
+                <engine:Slider label="Music" value="0.75" high-value="1" name="MusicAudio" low-value="0.0001" class="defaultSlider" />
+                <engine:Slider label="Sound" value="0.75" high-value="1" name="SoundAudio" low-value="0.0001" class="defaultSlider" />
+            </engine:GroupBox>
+            <engine:Label text="Graphic" double-click-selects-word="false" triple-click-selects-line="false" style="font-size: 9px; color: rgb(253, 253, 253); -unity-font-style: bold;" />
+            <engine:GroupBox name="GraphicGroup" style="padding-left: 20px;">
+                <engine:Instance template="ListSelector" name="GraphicProfileSelector" focusable="true" enabled="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+                <engine:Instance template="ListSelector" name="AntiAliasingSelector" focusable="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+                <engine:Slider label="Render Scale" value="1" high-value="2" name="RenderScale" show-input-field="true" enabled="true" low-value="0.1" fill="false" class="defaultSlider" style="-unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 0.5px; -unity-font-style: bold;" />
+                <engine:Instance template="ListSelector" name="ShadowResolutionSelector" focusable="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+                <engine:Instance template="ListSelector" name="ShadowDistanceSelector" focusable="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+                <engine:Instance template="ListSelector" name="TextureQualitySelector" focusable="true" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 5px;" />
+            </engine:GroupBox>
+        </engine:ScrollView>
+        <engine:VisualElement style="flex-grow: 1; flex-direction: column; align-self: center; align-content: center; justify-content: flex-start; align-items: stretch; min-width: 10%; min-height: auto; height: auto; flex-wrap: nowrap; padding-top: 5px; padding-right: 5px; padding-bottom: 10px; padding-left: 5px;">
+            <engine:Button text="Apply" name="ApplyButton" selectable="true" double-click-selects-word="false" triple-click-selects-line="false" enabled="true" class="defaultButtonStyle" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

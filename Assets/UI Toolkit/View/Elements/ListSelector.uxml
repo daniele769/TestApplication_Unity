@@ -1,0 +1,9 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/ButtonListSelector.uss?fileID=7433441132597879392&amp;guid=1147c4252fdd04643a721494e98a1624&amp;type=3#ButtonListSelector" />
+    <engine:VisualElement focusable="true" name="ListSelector" enabled="true" class="listSelector">
+        <engine:Label text="Name" name="Name" class="labelListSelector" />
+        <engine:Button text="&lt;" focusable="false" double-click-selects-word="false" triple-click-selects-line="false" name="PrevButton" class="buttonListSelector" />
+        <engine:Label text="Label" name="ValueLabel" class="valueListSelector" />
+        <engine:Button text="&gt;" focusable="false" double-click-selects-word="false" triple-click-selects-line="false" name="NextButton" class="buttonListSelector" />
+    </engine:VisualElement>
+</engine:UXML>
