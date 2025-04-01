@@ -39,10 +39,8 @@ public class OptionsControl : AbstractUIControl
     private bool _areSettingChanged;
     private bool _updatingAfterApply;
     
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-        
         InitializeElements();
         InitializeNavPath();
         defaultFocus = _screenModeSelector.RootElement();

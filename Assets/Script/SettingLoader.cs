@@ -10,7 +10,8 @@ public class SettingLoader : MonoBehaviour
     void Awake()
     {
         //Only for testing
-        // PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
+        Debug.developerConsoleVisible = true;
         
         LoadGeneralSetting();
         LoadAudioSetting();
@@ -78,6 +79,7 @@ public class SettingLoader : MonoBehaviour
                         urpAsset.renderScale = PlayerPrefs.GetFloat(Constants.RenderScale);
                         urpAsset.mainLightShadowmapResolution = PlayerPrefs.GetInt(Constants.ShadowResolution);
                         urpAsset.shadowDistance = PlayerPrefs.GetInt(Constants.ShadowDistance);
+                        urpAsset.msaaSampleCount = PlayerPrefs.GetInt(Constants.AntiAliasing);
                         QualitySettings.SetQualityLevel(4);
                         QualitySettings.globalTextureMipmapLimit = PlayerPrefs.GetInt(Constants.TextureQuality);
                         QualitySettings.vSyncCount = PlayerPrefs.GetInt(Constants.VSync);

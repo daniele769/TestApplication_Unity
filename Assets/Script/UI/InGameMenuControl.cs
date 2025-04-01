@@ -18,10 +18,8 @@ public class InGameMenuControl : AbstractUIControl
     [SerializeField] 
     private AbstractUIControl keybinding;
     
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-        
         InitializeMenu();
         InitializeElements();
         InitializeNavPath();
@@ -32,6 +30,10 @@ public class InGameMenuControl : AbstractUIControl
     private void InitializeMenu()
     {
         rootElement.style.display = DisplayStyle.None;
+        if (options.uiDocument == null)
+        {
+            print("Options uiDocument is null");
+        }
         options.uiDocument.rootVisualElement.style.display = DisplayStyle.None;
         keybinding.uiDocument.rootVisualElement.style.display = DisplayStyle.None;
     }

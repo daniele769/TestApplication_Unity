@@ -16,9 +16,10 @@ public abstract class AbstractUIControl : MonoBehaviour
     [HideInInspector]
     public UIDocument uiDocument;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         uiDocument = GetComponent<UIDocument>();
+        //print("UiDocument setted in " + this.name);
         rootElement = uiDocument.rootVisualElement;
     }
 
