@@ -92,6 +92,8 @@ public class PlayerControllerRigid : MonoBehaviour
         if (_isSwimming)
         {
             rigidbody.linearVelocity = Vector3.zero;
+            _isRunning = false;
+            _animator.SetBool(Constants.IsRunning, _isRunning);
             
         }
     }
@@ -216,7 +218,7 @@ public class PlayerControllerRigid : MonoBehaviour
     
     public void OnSprint()
     {
-        if (CheckGround())
+        if (CheckGround() && !_isSwimming)
         {
             _isRunning = !_animator.GetBool(Constants.IsRunning);
             _animator.SetBool(Constants.IsRunning, _isRunning);
@@ -225,7 +227,7 @@ public class PlayerControllerRigid : MonoBehaviour
 
     public void OnJump()
     {
-        if (CheckGround())
+        if (CheckGround() && !_isSwimming)
         {
             //StartCoroutine(DelayCheckGrounded());
             _body.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);

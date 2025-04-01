@@ -543,7 +543,7 @@ MonoBehaviour:
     UseFollowTarget:
       Enabled: 0
       YOffset: 0
-    Strategy: 2
+    Strategy: 0
     MaximumEffort: 4
     SmoothingTime: 0
     Damping: 0.4
@@ -1414,7 +1414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ffcd5fda26e2ba44ba236e7cc9a7fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSwimming: 0
   walkSpeed: 5
   runSpeed: 10
   jumpHeight: 8
@@ -1423,7 +1422,9 @@ MonoBehaviour:
   hStairsOff: 0.3
   vStairsOff: 0.4
   stairsUpSpeed: 1
+  lerpCameraSpeed: 2
   myCamera: {fileID: 330585545}
+  cinemachineCamera: {fileID: 502702488}
 --- !u!95 &1624830431
 Animator:
   serializedVersion: 7
