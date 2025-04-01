@@ -1,16 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerControllerRigid : MonoBehaviour
 {
     private Rigidbody _body;
     private bool _isMoving;
     private bool _isRunning;
+    private bool _isSwimming;
     private Vector2 _inputVector;
     private Vector3 _terrainNormal;
     private Animator _animator;
     private CapsuleCollider _capsuleCollider;
     private PlayerInput _playerInput;
+    private float _defaultBottomHeightCinemachine;
+    private Coroutine _lerpCameraCoroutine;
     
     [SerializeField]
     private float walkSpeed = 5f;
@@ -35,9 +42,15 @@ public class PlayerControllerRigid : MonoBehaviour
     
     [SerializeField] 
     private float stairsUpSpeed = 1f;
+    
+    [SerializeField] 
+    private float lerpCameraSpeed = 2f;
 
     [SerializeField] 
     private Camera myCamera;
+    
+    [SerializeField] 
+    private CinemachineOrbitalFollow cinemachineCamera;
     
     void Start()
     {
@@ -49,6 +62,7 @@ public class PlayerControllerRigid : MonoBehaviour
         _terrainNormal = Vector3.up;
         PlayerInputState.CurrentControlScheme = _playerInput.currentControlScheme;
         PlayerInputState.CurrentActionMap = _playerInput.currentActionMap.name;
+        _defaultBottomHeightCinemachine = cinemachineCamera.Orbits.Bottom.Height;
     }
     
     void FixedUpdate()
@@ -65,12 +79,66 @@ public class PlayerControllerRigid : MonoBehaviour
         CheckFalling();
     }
 
+    public void IsSwimming(bool val)
+    {
+        if (_isSwimming == val)
+            return;
+        
+        _isSwimming = val;
+        _animator.SetBool(Constants.IsSwimming, val);
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.useGravity = !val;
+
+        if (_isSwimming)
+        {
+            rigidbody.linearVelocity = Vector3.zero;
+            
+        }
+    }
+
+    public void AdjustCameraBeforeSwimming(bool isInsideWater)
+    {
+        //Change camera orbit to prevent see inside water
+        if (isInsideWater)
+        {
+            if (_lerpCameraCoroutine != null)
+            {
+                StopCoroutine(_lerpCameraCoroutine);
+                _lerpCameraCoroutine = null;
+            }
+            
+            cinemachineCamera.Orbits.Bottom.Height = 2.1f;
+        }
+        else
+        {
+            _lerpCameraCoroutine = StartCoroutine(LerpCamera());
+        }
+    }
+
+    private IEnumerator LerpCamera()
+    {
+        if (cinemachineCamera.Orbits.Bottom.Height > _defaultBottomHeightCinemachine)
+        {
+            print("Lerping camera");
+            cinemachineCamera.Orbits.Bottom.Height -= lerpCameraSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+            _lerpCameraCoroutine = StartCoroutine(LerpCamera());
+        }
+        else
+        {
+            cinemachineCamera.Orbits.Bottom.Height = _defaultBottomHeightCinemachine;
+            _lerpCameraCoroutine = null;
+            yield return 0;
+        }
+        
+    }
+
     private void MovePlayer()
     {
         if (_inputVector != Vector2.zero)
         {
             _isMoving = true;
-            _animator.SetBool("IsMoving", true);
+            _animator.SetBool(Constants.IsMoving, true);
             Vector3 hVector = myCamera.transform.right;
             Vector3 vVector = myCamera.transform.forward;
             hVector.y = 0;
@@ -80,6 +148,9 @@ public class PlayerControllerRigid : MonoBehaviour
             moveVector = moveVector.normalized;
             UpdatePlayerRotation(moveVector);
             
+            if(_isSwimming)
+                _terrainNormal = Vector3.up;
+            
             Vector3 moveVectorOnGround = Vector3.ProjectOnPlane(moveVector, _terrainNormal).normalized;
             if(_isRunning)
                 _body.MovePosition(_body.position + moveVectorOnGround * (Time.fixedDeltaTime * runSpeed));
@@ -88,8 +159,8 @@ public class PlayerControllerRigid : MonoBehaviour
             
             return;
         }
-        _animator.SetBool("IsMoving", false);
-        _animator.SetBool("IsRunning", false);
+        _animator.SetBool(Constants.IsMoving, false);
+        _animator.SetBool(Constants.IsRunning, false);
         _isRunning = false;
         _isMoving = false;
     }
@@ -127,13 +198,13 @@ public class PlayerControllerRigid : MonoBehaviour
     {
         if (!CheckGround())
         {
-            _animator.SetBool("IsFalling", true);
+            _animator.SetBool(Constants.IsFalling, true);
             return;
         }
 
         if (CheckGround())
         {
-            _animator.SetBool("IsFalling", false);
+            _animator.SetBool(Constants.IsFalling, false);
         }
         
     }
@@ -147,8 +218,8 @@ public class PlayerControllerRigid : MonoBehaviour
     {
         if (CheckGround())
         {
-            _isRunning = !_animator.GetBool("IsRunning");
-            _animator.SetBool("IsRunning", _isRunning);
+            _isRunning = !_animator.GetBool(Constants.IsRunning);
+            _animator.SetBool(Constants.IsRunning, _isRunning);
         }
     }
 
@@ -158,7 +229,7 @@ public class PlayerControllerRigid : MonoBehaviour
         {
             //StartCoroutine(DelayCheckGrounded());
             _body.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-            _animator.SetBool("IsFalling", true);
+            _animator.SetBool(Constants.IsFalling, true);
             
         }
     }

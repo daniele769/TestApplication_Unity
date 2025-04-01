@@ -35,5 +35,15 @@ public static class Constants
     public static string ShadowDistance = "ShadowDistance";
     public static string TextureQuality = "TextureQuality";
     public static string RenderScale = "RenderScale";
+    
+    //Name object to refer in scene
+    public static string SwimPos = "lookAt";
+    public static string LookAt = "lookAt";
+    
+    //Animator Parameter
+    public static string IsMoving = "IsMoving";
+    public static string IsRunning = "IsRunning";
+    public static string IsFalling = "IsFalling";
+    public static string IsSwimming = "IsSwimming";
 
 }
