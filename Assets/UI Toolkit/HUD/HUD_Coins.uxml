@@ -1,0 +1,9 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement style="flex-grow: 1; flex-direction: row; background-position-y: center 0; background-position-x: center 0;">
+        <engine:VisualElement enabled="true" style="flex-grow: 1; align-self: auto; padding-top: 15px; padding-right: 15px; padding-bottom: 25px; padding-left: 15px; flex-direction: row;">
+            <engine:VisualElement enabled="true" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Icon/T_Coins%2032.png?fileID=2800000&amp;guid=16808fe562e745e40a9af32d9657f584&amp;type=3#T_Coins 32&quot;); background-size: 2.25% 4%; -unity-background-image-tint-color: rgb(255, 255, 255); background-position-y: top 0; background-position-x: left 35px; flex-direction: row;">
+                <engine:Label text="0" name="Counter" style="align-self: flex-start; width: 2.3%; justify-content: flex-start; align-items: stretch; -unity-text-align: upper-right; font-size: 15px; white-space: nowrap; text-overflow: clip; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px; -unity-text-outline-color: rgb(0, 0, 0); align-content: flex-start; padding-top: 3px; padding-left: 0;" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

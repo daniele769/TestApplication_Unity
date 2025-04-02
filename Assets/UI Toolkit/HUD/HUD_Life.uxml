@@ -1,0 +1,7 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/HealthProgressBar.uss?fileID=7433441132597879392&amp;guid=e8c8ded7592adbb4aac724185c746a5a&amp;type=3#HealthProgressBar" />
+    <engine:VisualElement style="flex-grow: 1; flex-direction: row; width: 40%; height: auto; align-self: flex-start; align-content: flex-start; justify-content: flex-start; align-items: auto; flex-wrap: nowrap; flex-shrink: 1; padding-top: 35px; padding-right: 35px; padding-bottom: 35px; padding-left: 35px; scale: 0.8 0.8; translate: -42px 57px;">
+        <engine:Label text="HP" style="color: rgb(255, 255, 255); flex-direction: column; align-content: flex-start; align-self: flex-end; font-size: 25px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 0.3px; -unity-font-style: bold; -unity-text-align: upper-left; white-space: nowrap;" />
+        <engine:ProgressBar value="100" high-value="100" class="healthBar" style="align-self: flex-end; padding-top: 0; padding-bottom: 6px;" />
+    </engine:VisualElement>
+</engine:UXML>
