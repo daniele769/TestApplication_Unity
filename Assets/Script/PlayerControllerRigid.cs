@@ -292,4 +292,9 @@ public class PlayerControllerRigid : MonoBehaviour
             }
         }
     }
+
+    private void OnRecover()
+    {
+        HealthManager.Instance.InvokeRecover();
+    }
 }

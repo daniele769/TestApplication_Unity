@@ -5,7 +5,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Styles/DefaultToggle.uss?fileID=7433441132597879392&amp;guid=204a6d5a27bb0a844b25034a73d84a03&amp;type=3#DefaultToggle" />
     <Style src="project://database/Assets/UI%20Toolkit/Styles/DefaultSlider.uss?fileID=7433441132597879392&amp;guid=df32b9594c268774fa8a18a47162e958&amp;type=3#DefaultSlider" />
     <Style src="project://database/Assets/UI%20Toolkit/Styles/ButtonListSelector.uss?fileID=7433441132597879392&amp;guid=1147c4252fdd04643a721494e98a1624&amp;type=3#ButtonListSelector" />
-    <engine:VisualElement style="flex-grow: 1; background-color: rgb(36, 33, 33);">
+    <engine:VisualElement style="flex-grow: 1; background-color: rgba(36, 33, 33, 0.96);">
         <engine:VisualElement style="flex-grow: 1; flex-direction: column; align-self: flex-start; align-content: center; justify-content: flex-start; align-items: stretch; min-width: 10%; min-height: auto; height: auto; flex-wrap: nowrap; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
             <engine:Button text="Back" name="BackButton" selectable="true" double-click-selects-word="false" triple-click-selects-line="false" focusable="true" class="defaultButtonStyle" style="width: auto; min-width: 7%; min-height: auto; height: auto;" />
         </engine:VisualElement>

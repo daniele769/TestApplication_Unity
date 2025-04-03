@@ -45,5 +45,6 @@ public static class Constants
     public static string IsRunning = "IsRunning";
     public static string IsFalling = "IsFalling";
     public static string IsSwimming = "IsSwimming";
+    
 
 }
