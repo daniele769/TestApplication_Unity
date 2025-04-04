@@ -12,7 +12,7 @@ public class InputDeviceManager : MonoBehaviour
     {
         ManageFocusEnable();
         
-        if (PlayerInputState.CurrentActionMap.Equals("UI") && PlayerInputState.CurrentControlScheme != "Gamepad")
+        if (PlayerInputState.CurrentActionMap.Equals("UI") && PlayerInputState.CurrentControlScheme != "Gamepad" && Time.timeScale == 0)
         {
             Cursor.visible = true;
             return;

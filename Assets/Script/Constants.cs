@@ -2,6 +2,10 @@ using UnityEngine;
 
 public static class Constants
 {
+    //Action Map
+    public static string ActionMapPlayer = "Player";
+    public static string ActionMapUI = "UI";
+    
     //AudioMixer Parameters
     public static string MasterVolume = "MasterVolume";
     public static string MusicVolume = "MusicVolume";

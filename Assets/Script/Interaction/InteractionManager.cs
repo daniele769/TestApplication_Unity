@@ -67,7 +67,7 @@ public class InteractionManager : MonoBehaviour
     {
         if (_interactableObject)
         {
-            _interactableObject.Interact();
+            _interactableObject.Interact(transform);
         }
     }
 }

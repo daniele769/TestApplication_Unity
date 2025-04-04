@@ -1824,7 +1824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8612441892538835712}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.8945468, z: -0, w: 0.44697428}
+  m_LocalRotation: {x: 0, y: 0.8945485, z: 0, w: 0.44697094}
   m_LocalPosition: {x: 50.121, y: 6.984, z: 10.344}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
@@ -1919,6 +1919,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupInteraction: {fileID: 7510428574417061125}
+  dialogFinished: 0
+  coinsHUD: {fileID: 0}
+  potionCost: 5
+  potionHUD: {fileID: 0}
+  dialogManager: {fileID: 0}
+  firstOnlyDialogs:
+  - Hey there, you're new around here, aren't you?
+  - This place is pretty dangerous... but if you need help, I can sell you some potions
+    for a few coins.
+  defaultDialogs:
+  - Ah, you're back! Looking for some potions?
+  choiceAtEnd: 1
+  choiceSummary: It's just 5 coins for a potion.
+  choiceOneText: Yes
+  choicetwoText: No
+  choiceOneReply:
+  - It's a pleasure doing business with you.
+  - It's better if you come back when you have more coins.
+  choiceTwoReply:
+  - "Ok then, I\xECll be here if you need me."
 --- !u!1 &8744796333743545367
 GameObject:
   m_ObjectHideFlags: 0

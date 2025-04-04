@@ -5,6 +5,6 @@ public abstract class AbstractInteractableObject : MonoBehaviour
 {
     public PopupInteraction popupInteraction;
 
-    public abstract void Interact();
+    public abstract void Interact(Transform player);
 
 }

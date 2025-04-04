@@ -1,33 +1,36 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class CoinsHUDManager : MonoBehaviour
 {
-    private int _potionsCount;
+    [HideInInspector] 
+    public int coinsCount;
+    
     private Label _counterLabel;
 
     private void Awake()
     {
-        _potionsCount = 0;
+        coinsCount = 0;
         _counterLabel = GetComponent<UIDocument>().rootVisualElement.Q<Label>("Counter");
-        _counterLabel.text = "" + _potionsCount;
+        _counterLabel.text = "" + coinsCount;
         
     }
 
-    private void ConsumeCoin()
+    public void ConsumeCoin(int val)
     {
-        if (_potionsCount > 0)
+        if (coinsCount > 0)
         {
-            _potionsCount--;
-            _counterLabel.text = "" + _potionsCount;
+            coinsCount -= val;
+            _counterLabel.text = "" + coinsCount;
         }
     }
 
     public void AddCoins()
     {
-        _potionsCount++;
-        _counterLabel.text = "" + _potionsCount;
+        coinsCount++;
+        _counterLabel.text = "" + coinsCount;
     }
 
 
