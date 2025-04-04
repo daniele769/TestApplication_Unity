@@ -5,12 +5,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+public enum GroundType
+{
+    Stone = 0,
+    Wood = 1,
+    Grass = 2
+}
 public class PlayerControllerRigid : MonoBehaviour
 {
     private Rigidbody _body;
     private bool _isMoving;
     private bool _isRunning;
     private bool _isSwimming;
+    private bool _isInsideWater;
     private Vector2 _inputVector;
     private Vector3 _terrainNormal;
     private Animator _animator;
@@ -18,6 +25,10 @@ public class PlayerControllerRigid : MonoBehaviour
     private PlayerInput _playerInput;
     private float _defaultBottomHeightCinemachine;
     private Coroutine _lerpCameraCoroutine;
+    private AudioSource _audioSource;
+    private bool _isFootstep1;
+    private float _walkDelaySound;
+    private GroundType _groundType;
     
     [SerializeField]
     private float walkSpeed = 5f;
@@ -51,6 +62,27 @@ public class PlayerControllerRigid : MonoBehaviour
     
     [SerializeField] 
     private CinemachineOrbitalFollow cinemachineCamera;
+
+    [SerializeField]
+    private AudioClip grassFootstep1;
+    
+    [SerializeField]
+    private AudioClip grassFootstep2;
+    
+    [SerializeField]
+    private AudioClip stoneFootstep1;
+    
+    [SerializeField]
+    private AudioClip stoneFootstep2;
+    
+    [SerializeField]
+    private AudioClip woodFootstep1;
+    
+    [SerializeField]
+    private AudioClip woodFootstep2;
+    
+    [SerializeField]
+    private float _pitchRandomInterval = 0.2f;
     
     void Start()
     {
@@ -58,7 +90,9 @@ public class PlayerControllerRigid : MonoBehaviour
         _animator = GetComponent<Animator>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _playerInput = GetComponent<PlayerInput>();
-        
+        _audioSource = GetComponent<AudioSource>();
+
+        _isFootstep1 = true;
         _terrainNormal = Vector3.up;
         PlayerInputState.CurrentControlScheme = _playerInput.currentControlScheme;
         PlayerInputState.CurrentActionMap = _playerInput.currentActionMap.name;
@@ -68,7 +102,6 @@ public class PlayerControllerRigid : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
-        
     }
 
     private void Update()
@@ -77,9 +110,68 @@ public class PlayerControllerRigid : MonoBehaviour
         PlayerInputState.CurrentActionMap = _playerInput.currentActionMap.name;
         CheckStairs();
         CheckFalling();
+        PlayFootstep();
     }
 
-    public void IsSwimming(bool val)
+    private void PlayFootstep()
+    {
+        if (CheckGround() && !_isInsideWater)
+        {
+            if (IsMoving())
+            {
+                if (_isRunning)
+                    _walkDelaySound = 0;
+                else
+                    _walkDelaySound = 0.3f;
+                
+                if (!_audioSource.isPlaying)
+                {
+                    if (_groundType == GroundType.Grass)
+                    {
+                        if (_isFootstep1)
+                        {
+                            if (_audioSource.resource != grassFootstep1)
+                                _audioSource.resource = grassFootstep1;
+                        }
+                        else 
+                        if (_audioSource.resource != grassFootstep2)
+                            _audioSource.resource = grassFootstep2;
+                    }
+                    else if (_groundType == GroundType.Stone)
+                    {
+                        if (_isFootstep1)
+                        {
+                            if (_audioSource.resource != stoneFootstep1)
+                                _audioSource.resource = stoneFootstep1;
+                        }
+                        else 
+                        if (_audioSource.resource != stoneFootstep2)
+                            _audioSource.resource = stoneFootstep2;
+                    }
+                    else
+                    {
+                        if (_isFootstep1)
+                        {
+                            if (_audioSource.resource != woodFootstep1)
+                                _audioSource.resource = woodFootstep1;
+                        }
+                        else 
+                        if (_audioSource.resource != woodFootstep2)
+                            _audioSource.resource = woodFootstep2;
+                    }
+                    
+                    print("PlayAudio");
+                    float pitchOffset = Random.Range(-1 * _pitchRandomInterval, _pitchRandomInterval);
+                    _audioSource.pitch = 1 + pitchOffset;
+                    _audioSource.PlayDelayed(_walkDelaySound);
+                    _isFootstep1 = !_isFootstep1;
+                }
+                
+            }
+        }
+    }
+
+    public void SetIsSwimming(bool val)
     {
         if (_isSwimming == val)
             return;
@@ -175,7 +267,7 @@ public class PlayerControllerRigid : MonoBehaviour
         }
     }
 
-    private bool CheckGround()
+    public bool CheckGround()
     {
         bool isGrouded;
         RaycastHit hit;
@@ -186,6 +278,16 @@ public class PlayerControllerRigid : MonoBehaviour
         {
             isGrouded = true;
             _terrainNormal = hit.normal;
+            if (hit.transform.CompareTag("Stone"))
+            {
+                _groundType = GroundType.Stone;
+            }
+            else if (hit.transform.CompareTag("Wood"))
+            {
+                _groundType = GroundType.Wood;
+            }
+            else
+                _groundType = GroundType.Grass;
         }
         else
         {
@@ -296,5 +398,25 @@ public class PlayerControllerRigid : MonoBehaviour
     private void OnRecover()
     {
         HealthManager.Instance.InvokeRecover();
+    }
+
+    public bool IsMoving()
+    {
+        return _isMoving;
+    }
+    
+    public bool IsSwimming()
+    {
+        return _isSwimming;
+    }
+    
+    public bool IsRunning()
+    {
+        return _isRunning;
+    }
+    
+    public void SetIsInsideWater(bool val)
+    {
+        _isInsideWater = val;
     }
 }
