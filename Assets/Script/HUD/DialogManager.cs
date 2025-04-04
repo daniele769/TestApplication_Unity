@@ -49,7 +49,7 @@ public class DialogManager : AbstractUIControl
     
     void Update()
     {
-        if (PlayerInputState.CurrentActionMap.Equals(Constants.ActionMapUI) && _uiDocument.rootVisualElement.style.display == DisplayStyle.Flex)
+        if (InputDeviceManager.Instance.currentActionMap.Equals(Constants.ActionMapUI) && _uiDocument.rootVisualElement.style.display == DisplayStyle.Flex)
         {
             if (InputSystem.actions.FindAction("Submit").triggered)
             {

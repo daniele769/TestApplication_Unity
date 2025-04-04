@@ -1,0 +1,10 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/DefaultButtonStyle.uss?fileID=7433441132597879392&amp;guid=ec487a2abbe59534eaac2fd037a3d170&amp;type=3#DefaultButtonStyle" />
+    <engine:VisualElement style="flex-grow: 1;">
+        <engine:GroupBox style="align-self: stretch; justify-content: center; align-content: stretch; height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgb(41, 40, 40);">
+            <engine:Button text="Play" name="PlayButton" class="defaultButtonStyle" style="align-self: center; align-content: flex-start; align-items: stretch; width: 8%;" />
+            <engine:Button text="Options" name="OptionsButton" class="defaultButtonStyle" style="align-self: center; align-content: flex-start; align-items: stretch; width: 8%;" />
+            <engine:Button text="Close Game" name="CloseGameButton" class="defaultButtonStyle" style="align-self: center; align-content: flex-start; align-items: stretch; width: 8%;" />
+        </engine:GroupBox>
+    </engine:VisualElement>
+</engine:UXML>

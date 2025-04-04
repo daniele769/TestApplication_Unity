@@ -1,0 +1,7 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement style="flex-grow: 1; flex-direction: column; align-self: auto; top: 0; position: relative; flex-wrap: nowrap; align-items: center; align-content: flex-start; justify-content: center; background-color: rgb(31, 31, 31);">
+        <engine:Label text="Press any button to continue" name="labelCompletLoading" style="color: rgb(255, 255, 255); display: none;" />
+        <engine:ProgressBar value="0" title="0%" name="LoadingBar" style="width: 50%;" />
+        <engine:Label text="Use a Gamepad for the best experience" name="LoadingHint" style="color: rgb(255, 255, 255);" />
+    </engine:VisualElement>
+</engine:UXML>

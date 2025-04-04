@@ -18,7 +18,7 @@ public class UIControlRoot : MonoBehaviour
     
     public void Update()
     {
-        if (PlayerInputState.CurrentActionMap.Equals("Player"))
+        if (InputDeviceManager.Instance.currentActionMap.Equals("Player"))
         {
             if (InputSystem.actions.FindAction("OpenMenu").triggered)
             {
@@ -28,7 +28,7 @@ public class UIControlRoot : MonoBehaviour
             }
         }
         
-        if (PlayerInputState.CurrentActionMap.Equals("UI"))
+        if (InputDeviceManager.Instance.currentActionMap.Equals("UI"))
         {
             if (InputSystem.actions.FindAction("Cancel").triggered)
             {

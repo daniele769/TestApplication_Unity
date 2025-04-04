@@ -33,7 +33,7 @@ public abstract class AbstractUIControl : MonoBehaviour
         if(rootElement.style.display == DisplayStyle.None)
             return;
         
-        if (PlayerInputState.FocusEnabled)
+        if (InputDeviceManager.Instance.focusEnabled)
         {
             if (lastFocus != null)
             {
@@ -73,7 +73,7 @@ public abstract class AbstractUIControl : MonoBehaviour
 
     private void FocusElement(VisualElement element, NavigationMoveEvent e)
     {
-       if(element == null || !PlayerInputState.FocusEnabled)
+       if(element == null || !InputDeviceManager.Instance.focusEnabled)
            return;
 
        if (!element.enabledInHierarchy)

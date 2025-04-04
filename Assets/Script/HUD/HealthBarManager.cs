@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class HealthBarManager : MonoBehaviour
 {
     private ProgressBar _healtBar;
-    private float _healthValue; 
+    private float _healthValue;
+    private event Action OnDeath;
     
     void Awake()
     {
@@ -21,6 +23,7 @@ public class HealthBarManager : MonoBehaviour
         if (_healthValue <= 0)
         {
             //TODO Death event
+            OnDeath?.Invoke();
             print("*** Player is death ***");
         }
     }

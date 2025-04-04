@@ -2,6 +2,10 @@ using UnityEngine;
 
 public static class Constants
 {
+    //Scene Name
+    public static string SceneLoader = "LoadingScene";
+    public static string Level_0 = "Level_0";
+    
     //Action Map
     public static string ActionMapPlayer = "Player";
     public static string ActionMapUI = "UI";

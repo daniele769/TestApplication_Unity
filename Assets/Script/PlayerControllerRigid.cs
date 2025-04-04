@@ -94,8 +94,6 @@ public class PlayerControllerRigid : MonoBehaviour
 
         _isFootstep1 = true;
         _terrainNormal = Vector3.up;
-        PlayerInputState.CurrentControlScheme = _playerInput.currentControlScheme;
-        PlayerInputState.CurrentActionMap = _playerInput.currentActionMap.name;
         _defaultBottomHeightCinemachine = cinemachineCamera.Orbits.Bottom.Height;
     }
     
@@ -106,8 +104,6 @@ public class PlayerControllerRigid : MonoBehaviour
 
     private void Update()
     {
-        PlayerInputState.CurrentControlScheme = _playerInput.currentControlScheme;
-        PlayerInputState.CurrentActionMap = _playerInput.currentActionMap.name;
         CheckStairs();
         CheckFalling();
         PlayFootstep();
