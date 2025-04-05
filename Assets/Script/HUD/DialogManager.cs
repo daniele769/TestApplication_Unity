@@ -43,6 +43,7 @@ public class DialogManager : AbstractUIControl
     void OnEnable()
     {
         InitializeElements();
+        InitializeNavPath();
         //defaultFocus = noButton;
     }
 

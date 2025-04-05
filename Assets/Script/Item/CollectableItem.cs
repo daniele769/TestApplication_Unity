@@ -22,14 +22,20 @@ public class CollectableItem : MonoBehaviour
 
     private Vector3 _dirToRotate;
     private Vector3 _defaultScale;
+    private AudioSource _audioSource;
+    private bool _haveToDestroy;
 
     private void Start()
     {
         _defaultScale = transform.localScale;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        if(_haveToDestroy & !_audioSource.isPlaying)
+            Destroy(this.gameObject);
+        
         switch (itemType)
         {
             case ItemType.Coin: _dirToRotate = Vector3.forward; break;
@@ -53,7 +59,13 @@ public class CollectableItem : MonoBehaviour
                 case ItemType.Potion: CollectableItemManager.Instance.InvokeAddPotions(); break;
             }
             
-            Destroy(this.gameObject);
+            _audioSource.Play();
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+            GetComponent<SphereCollider>().enabled = false;
+            _haveToDestroy = true;
         }
     }
 }

@@ -9,6 +9,7 @@ public class MerchantInteraction : AbstractInteractableObject
     private Coroutine _lookAtPlayer = null;
     private bool _alreadyTalked;
     private bool _interactionStarted;
+    private AudioSource _audioSource;
     
     [HideInInspector]
     public bool dialogFinished;
@@ -48,6 +49,11 @@ public class MerchantInteraction : AbstractInteractableObject
     
     [SerializeField] 
     private List<string> choiceTwoReply;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
     
     public override void Interact(Transform player)
     {
@@ -101,6 +107,7 @@ public class MerchantInteraction : AbstractInteractableObject
             coinsHUD.ConsumeCoin(potionCost);
             potionHUD.AddPotions();
             dialogManager.ShowReply(choiceOneReply[0]);
+            _audioSource.Play();
             return;
         }
         dialogManager.ShowReply(choiceOneReply[1]);
