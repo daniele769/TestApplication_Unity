@@ -44,12 +44,7 @@ public abstract class AbstractUIControl : MonoBehaviour
         }
         else
         {
-            if (lastFocus != null)
-            {
-                lastFocus.Blur();
-                return;
-            }
-            uiDocument.rootVisualElement.pickingMode = PickingMode.Ignore;
+            lastFocus?.Blur();
             defaultFocus?.Blur();
         }
     }

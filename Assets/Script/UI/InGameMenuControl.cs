@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class InGameMenuControl : AbstractUIControl
@@ -30,10 +31,6 @@ public class InGameMenuControl : AbstractUIControl
     private void InitializeMenu()
     {
         rootElement.style.display = DisplayStyle.None;
-        if (options.uiDocument == null)
-        {
-            print("Options uiDocument is null");
-        }
         options.uiDocument.rootVisualElement.style.display = DisplayStyle.None;
         keybinding.uiDocument.rootVisualElement.style.display = DisplayStyle.None;
     }
@@ -49,7 +46,7 @@ public class InGameMenuControl : AbstractUIControl
         _continueButton.clicked += ContinueButtonOnClicked;
         _optionsButton.clicked += OpenOptions;
         _keyBindingButton.clicked += OpenKeybinding;
-        
+        _backToMenuButton.clicked += () => { SceneManager.LoadScene(Constants.MainMenuScene); };
         _closeGameButton.clicked += () => { Application.Quit(); };
     }
 

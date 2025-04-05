@@ -18,6 +18,7 @@ public class PlayerControllerRigid : MonoBehaviour
     private bool _isRunning;
     private bool _isSwimming;
     private bool _isInsideWater;
+    private bool _isDeath;
     private Vector2 _inputVector;
     private Vector3 _terrainNormal;
     private Animator _animator;
@@ -95,6 +96,15 @@ public class PlayerControllerRigid : MonoBehaviour
         _isFootstep1 = true;
         _terrainNormal = Vector3.up;
         _defaultBottomHeightCinemachine = cinemachineCamera.Orbits.Bottom.Height;
+
+        HealthManager.Instance.OnDeath += () => 
+        { 
+            _playerInput.SwitchCurrentActionMap(Constants.ActionMapUI); 
+            _animator.SetTrigger(Constants.IsDeath); 
+            _isDeath = true;
+            _playerInput.actions.FindAction(Constants.ActionCloseMenu).Disable();
+            _playerInput.actions.FindAction(Constants.ActionOpenMenu).Disable();
+        };
     }
     
     void FixedUpdate()
@@ -409,6 +419,11 @@ public class PlayerControllerRigid : MonoBehaviour
     public bool IsRunning()
     {
         return _isRunning;
+    }
+    
+    public bool IsDeath()
+    {
+        return _isDeath;
     }
     
     public void SetIsInsideWater(bool val)

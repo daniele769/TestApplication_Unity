@@ -8,6 +8,7 @@ public class HealthManager : MonoBehaviour
 
     public Action OnDamage;
     public Action OnRecover;
+    public event Action OnDeath;
 
     private static float _damageValue;
     
@@ -61,6 +62,12 @@ public class HealthManager : MonoBehaviour
     public void InvokeRecover()
     {
         OnRecover?.Invoke();
+    }
+
+    public void InvokeDeath()
+    {
+        print("*** Player is death ***");
+        OnDeath?.Invoke();
     }
 
 

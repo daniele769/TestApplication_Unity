@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class InputDeviceManager : MonoBehaviour
 {
     public static InputDeviceManager Instance { get; private set; }
+    private PlayerControllerRigid _playerController;
     
     [HideInInspector]
     public string currentControlScheme;
@@ -25,6 +26,7 @@ public class InputDeviceManager : MonoBehaviour
             Instance = this;
             currentControlScheme = playerInput.currentControlScheme;
             currentActionMap = playerInput.currentActionMap.name;
+            _playerController = playerInput.GetComponent<PlayerControllerRigid>();
         }
         else
         {
@@ -39,7 +41,7 @@ public class InputDeviceManager : MonoBehaviour
         
         ManageFocusEnable();
         
-        if (currentActionMap.Equals("UI") && currentControlScheme != "Gamepad" && Time.timeScale == 0)
+        if (currentActionMap.Equals("UI") && currentControlScheme != "Gamepad" && (Time.timeScale == 0 || _playerController.IsDeath()) )
         {
             Cursor.visible = true;
             return;

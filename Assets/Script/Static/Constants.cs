@@ -5,10 +5,19 @@ public static class Constants
     //Scene Name
     public static string SceneLoader = "LoadingScene";
     public static string Level_0 = "Level_0";
+    public static string MainMenuScene = "MainMenu";
     
     //Action Map
     public static string ActionMapPlayer = "Player";
     public static string ActionMapUI = "UI";
+    
+    //Control scheme
+    public static string ControlSchemeGamepad = "Gamepad";
+    public static string ControlSchemeMouse = "Keyboard&Mouse";
+    
+    //Action
+    public static string ActionOpenMenu = "OpenMenu";
+    public static string ActionCloseMenu = "CloseMenu";
     
     //AudioMixer Parameters
     public static string MasterVolume = "MasterVolume";
@@ -53,6 +62,7 @@ public static class Constants
     public static string IsRunning = "IsRunning";
     public static string IsFalling = "IsFalling";
     public static string IsSwimming = "IsSwimming";
+    public static string IsDeath = "IsDeath";
     
 
 }

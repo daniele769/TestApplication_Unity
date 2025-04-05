@@ -27,6 +27,7 @@ public class DialogManager : AbstractUIControl
     private Action _actionYesButton;
     private Action _actionNoButton;
     private bool _isFocusInitialized;
+    private bool _delaySubmitAtStartup = true;
     
     [HideInInspector]
     public Button yesButton;
@@ -44,12 +45,21 @@ public class DialogManager : AbstractUIControl
     {
         InitializeElements();
         InitializeNavPath();
-        //defaultFocus = noButton;
+
+        defaultFocus = noButton;
     }
 
     
     void Update()
     {
+        if (_isTextPlaying)
+        {
+            if (_delaySubmitAtStartup)
+            {
+                _delaySubmitAtStartup = false;
+                return;
+            }
+        }
         if (InputDeviceManager.Instance.currentActionMap.Equals(Constants.ActionMapUI) && _uiDocument.rootVisualElement.style.display == DisplayStyle.Flex)
         {
             if (InputSystem.actions.FindAction("Submit").triggered)
@@ -88,12 +98,15 @@ public class DialogManager : AbstractUIControl
                     yesButton.clicked -= _actionYesButton;
                     noButton.clicked -= _actionNoButton;
                     _isFocusInitialized = false;
+                    playerInput.actions.FindAction(Constants.ActionCloseMenu).Enable();
+                    playerInput.actions.FindAction(Constants.ActionOpenMenu).Enable();
+                    _delaySubmitAtStartup = true;
                     return;
                 }
                 _displayText = StartCoroutine(DisplayText());
             }
 
-            if (!_isFocusInitialized && _buttonBox.style.display == DisplayStyle.Flex)
+            if (!_isFocusInitialized && _buttonBox.style.display == DisplayStyle.Flex && InputDeviceManager.Instance.currentControlScheme == Constants.ControlSchemeGamepad)
             {
                 noButton.Focus();
                 _isFocusInitialized = true;
@@ -142,6 +155,8 @@ public class DialogManager : AbstractUIControl
         }
         _pos = 0;
         playerInput.SwitchCurrentActionMap(Constants.ActionMapUI);
+        playerInput.actions.FindAction(Constants.ActionCloseMenu).Disable();
+        playerInput.actions.FindAction(Constants.ActionOpenMenu).Disable();
         _uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         _displayText = StartCoroutine(DisplayText());
         
