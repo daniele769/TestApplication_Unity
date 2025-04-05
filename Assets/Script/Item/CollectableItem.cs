@@ -5,6 +5,8 @@ public enum ItemType
 {
     Coin = 0,
     Potion = 1,
+    HolyShield = 2,
+    HolySword = 3
 }
 
 public class CollectableItem : MonoBehaviour
@@ -40,6 +42,8 @@ public class CollectableItem : MonoBehaviour
         {
             case ItemType.Coin: _dirToRotate = Vector3.forward; break;
             case ItemType.Potion: _dirToRotate = Vector3.up; break;
+            case ItemType.HolyShield: _dirToRotate = Vector3.up; break;
+            case ItemType.HolySword: _dirToRotate = Vector3.up; break;
         }
         transform.Rotate(_dirToRotate, speedRot * Time.deltaTime);
         float pulseFactor = (float) (1 + Math.Sin(Time.time * pulseSpeed) * pulseMagnitude);

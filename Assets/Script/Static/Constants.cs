@@ -63,6 +63,9 @@ public static class Constants
     public static string IsFalling = "IsFalling";
     public static string IsSwimming = "IsSwimming";
     public static string IsDeath = "IsDeath";
+    public static string PushTrigger = "PushTrigger";
+    public static string ReleaseTrigger = "ReleaseTrigger";
+    public static string IsPulling = "IsPulling";
     
 
 }

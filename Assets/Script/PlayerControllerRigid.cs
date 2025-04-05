@@ -19,6 +19,8 @@ public class PlayerControllerRigid : MonoBehaviour
     private bool _isSwimming;
     private bool _isInsideWater;
     private bool _isDeath;
+    private bool _isGrabbing;
+    private bool _isPulling;
     private Vector2 _inputVector;
     private Vector3 _terrainNormal;
     private Animator _animator;
@@ -245,6 +247,7 @@ public class PlayerControllerRigid : MonoBehaviour
             vVector.y = 0;
         
             Vector3 moveVector = hVector * _inputVector.x + vVector * _inputVector.y;
+            
             moveVector = moveVector.normalized;
             UpdatePlayerRotation(moveVector);
             
@@ -267,7 +270,7 @@ public class PlayerControllerRigid : MonoBehaviour
     
     private void UpdatePlayerRotation(Vector3 moveVector)
     {
-        if (moveVector != Vector3.zero)
+        if (moveVector != Vector3.zero && !_isGrabbing)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveVector), rotSpeed * Time.deltaTime);
         }
@@ -280,7 +283,7 @@ public class PlayerControllerRigid : MonoBehaviour
         
         Vector3 pos = transform.position;
         pos.y += 0.25f;
-        if(Physics.SphereCast(pos, 0.2f, Vector3.down, out hit, 0.5f + fallingOffset))
+        if(Physics.SphereCast(pos, 0.2f, Vector3.down, out hit, 0.5f + fallingOffset, ~0, QueryTriggerInteraction.Ignore))
         {
             isGrouded = true;
             _terrainNormal = hit.normal;
@@ -322,11 +325,27 @@ public class PlayerControllerRigid : MonoBehaviour
     public void OnMove(InputValue val)
     {
         _inputVector = val.Get<Vector2>();
+
+        if (_isGrabbing)
+        {
+            if (_inputVector.y < 0f)
+            {
+                print("Player is moving backWord");
+                _isPulling = true;
+                _animator.SetBool(Constants.IsPulling, true);
+            }
+            else if (_inputVector.y > 0f)
+            {
+                print("Player is moving forward");
+                _isPulling = false;
+                _animator.SetBool(Constants.IsPulling, false);
+            }   
+        }
     }
     
     public void OnSprint()
     {
-        if (CheckGround() && !_isSwimming)
+        if (CheckGround() && !_isSwimming && !_isGrabbing)
         {
             _isRunning = !_animator.GetBool(Constants.IsRunning);
             _animator.SetBool(Constants.IsRunning, _isRunning);
@@ -335,7 +354,7 @@ public class PlayerControllerRigid : MonoBehaviour
 
     public void OnJump()
     {
-        if (CheckGround() && !_isSwimming)
+        if (CheckGround() && !_isSwimming && !_isGrabbing)
         {
             //StartCoroutine(DelayCheckGrounded());
             _body.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
@@ -426,8 +445,18 @@ public class PlayerControllerRigid : MonoBehaviour
         return _isDeath;
     }
     
+    public bool GetIsPulling()
+    {
+        return _isPulling;
+    }
+    
     public void SetIsInsideWater(bool val)
     {
         _isInsideWater = val;
+    }
+    
+    public void SetIsGrabbing(bool val)
+    {
+        _isGrabbing = val;
     }
 }

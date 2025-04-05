@@ -34,7 +34,7 @@ public class PopupInteraction : MonoBehaviour
         {
             InteractionManager interactionManager = other.GetComponent<InteractionManager>();
             interactionManager.AddInteractableObjectAround();
-            //print("Interactable object inside interaction range: " + other.transform.name);
+            print("Interactable object inside interaction range: " + other.transform.name);
         }
     }
 
@@ -46,5 +46,10 @@ public class PopupInteraction : MonoBehaviour
             interactionManager.RemoveInteractableObjectAround();
             //print("Interactable outside interaction range: " + other.transform.name);
         }
+    }
+
+    public void SetText(string text)
+    {
+        label.text = text;
     }
 }

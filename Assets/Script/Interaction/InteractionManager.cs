@@ -20,6 +20,7 @@ public class InteractionManager : MonoBehaviour
         if (_interactableObjectAround > 0)
         {
             SearchInteractableObject();
+            //print("InteractableObjectAround");
         }
     }
 
