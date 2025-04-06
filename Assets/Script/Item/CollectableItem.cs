@@ -61,6 +61,8 @@ public class CollectableItem : MonoBehaviour
             {
                 case ItemType.Coin: CollectableItemManager.Instance.InvokeAddCoin(); break;
                 case ItemType.Potion: CollectableItemManager.Instance.InvokeAddPotions(); break;
+                case ItemType.HolyShield: CollectableItemManager.Instance.InvokeAddShield(); break;
+                case ItemType.HolySword: CollectableItemManager.Instance.InvokeAddSword(); break;
             }
             
             _audioSource.Play();

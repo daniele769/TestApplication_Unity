@@ -56,6 +56,8 @@ public static class Constants
     //Name object to refer in scene
     public static string SwimPos = "lookAt";
     public static string LookAt = "lookAt";
+    public static string SwordStatue = "Sword";
+    public static string ShieldStatue = "Shield";
     
     //Animator Parameter
     public static string IsMoving = "IsMoving";

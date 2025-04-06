@@ -19,6 +19,7 @@ public class SecretDoorControl : MonoBehaviour
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        
         puzzleControl.OnComplete += OpenDoor;
     }
     

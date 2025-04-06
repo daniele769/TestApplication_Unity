@@ -49,10 +49,13 @@ public class InteractionManager : MonoBehaviour
         {
             if (hit.transform.TryGetComponent<AbstractInteractableObject>(out AbstractInteractableObject obj))
             {
-                //print("Interactable focused: " + hit.transform.name);
-                _interactableObject = obj;
-                _interactableObject.popupInteraction.canvas.enabled = true;
-                return;
+                if (obj.enabled)
+                {
+                    //print("Interactable focused: " + hit.transform.name);
+                    _interactableObject = obj;
+                    _interactableObject.popupInteraction.canvas.enabled = true;
+                    return;
+                }
             }
         }
 
