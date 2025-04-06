@@ -6,6 +6,14 @@ public class PillarInteraction : AbstractInteractableObject
     [SerializeField] 
     private List<Transform> grabPoints;
     
+    [SerializeField]
+    private PillarsPuzzleControl pillarsPuzzle;
+    
+    [SerializeField]
+    private GameObject fireParticle;
+    
+    private Light _pointLight;
+    
     private AudioSource _audioSource;
     private bool _isGrabbing;
     private FixedJoint _fixedJoint;
@@ -16,14 +24,14 @@ public class PillarInteraction : AbstractInteractableObject
     {
         _audioSource = GetComponent<AudioSource>();
         _objectCollider = GetComponent<Collider>();
+        _pointLight = GetComponentInChildren<Light>();
+        
+        pillarsPuzzle.OnComplete += () => { _pointLight.enabled = true; fireParticle.SetActive(true);};
     }
     
     void Update()
     {
-        if (_isGrabbing)
-        {
-            
-        }
+        
     }
 
     public override void Interact(Transform player)
