@@ -1,0 +1,3 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="RedVignette" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Image/T_redVignette.png?fileID=2800000&amp;guid=8231414b7ca1a714e81d8e735bc236e8&amp;type=3#T_redVignette&quot;); -unity-background-image-tint-color: rgba(255, 255, 255, 0);" />
+</engine:UXML>

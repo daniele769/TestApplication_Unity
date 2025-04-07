@@ -57,6 +57,11 @@ public class HealthBarManager : MonoBehaviour
         _healtBar.value = _healthValue;
         return;
     }
+
+    public float GetValue()
+    {
+        return _healthValue;
+    }
     
     void Update()
     {

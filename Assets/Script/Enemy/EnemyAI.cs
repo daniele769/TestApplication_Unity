@@ -90,6 +90,9 @@ public class EnemyAI : MonoBehaviour
     
     [SerializeField] 
     private AudioClip deathClip;
+
+    [SerializeField] 
+    private EvilBarrierControl evilBarrierControl;
     
     void Start()
     {
@@ -339,6 +342,7 @@ public class EnemyAI : MonoBehaviour
             _isDeath = true;
             _animator.SetTrigger(Constants.IsDeath);
             PlaySound(deathClip);
+            evilBarrierControl?.AddPuzzleCompleted();
         }
     }
 

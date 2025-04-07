@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class HealthManager : MonoBehaviour
 {
@@ -22,12 +23,18 @@ public class HealthManager : MonoBehaviour
     [SerializeField] 
     private PotionsHUDManager potionsHUD;
     
+    [SerializeField] 
+    private UIDocument redVignette;
+
+    private VisualElement _redVignetteElement;
+    
     private void Awake()
     {
         //this is a singleton, only one instance have to exist
         if (Instance == null)
         {
             Instance = this;
+            _redVignetteElement = redVignette.rootVisualElement.Q<VisualElement>("RedVignette");
             _damageValue = 0;
             OnDamage += MakeDamage;
             OnRecover += Recover;
@@ -76,6 +83,23 @@ public class HealthManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (healthBar.GetValue() < 50)
+        {
+            float alpha = Mathf.Clamp01(1 - healthBar.GetValue() / 50);
+            Color color = _redVignetteElement.style.unityBackgroundImageTintColor.value;
+            color.r = 255;
+            color.g = 0;
+            color.b = 0;
+            color.a = alpha * 255;
+            print("Background alpha is " + color.a);
+            _redVignetteElement.style.unityBackgroundImageTintColor = new StyleColor(color);
+        }
+        else if (_redVignetteElement.style.unityBackgroundImageTintColor.value.a != 0)
+        {
+            Color color = _redVignetteElement.style.unityBackgroundImageTintColor.value; 
+            color.a = 0; 
+            _redVignetteElement.style.unityBackgroundImageTintColor = new StyleColor(color);
+            
+        }
     }
 }

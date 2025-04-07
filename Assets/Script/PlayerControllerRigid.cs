@@ -40,65 +40,78 @@ public class PlayerControllerRigid : MonoBehaviour
     private bool _startedDelayForAttack;
     private List<Collider> collidersHit;
     
-    [SerializeField]
-    private float walkSpeed = 5f;
+    [Header("Base Movement")] 
+        [SerializeField]
+        private float walkSpeed = 5f;
 
-    [SerializeField] 
-    private float runSpeed = 10f;
+        [SerializeField] 
+        private float runSpeed = 10f;
 
-    [SerializeField] 
-    private float jumpHeight = 8f;
-    
-    [SerializeField] 
-    private float rotSpeed = 7f;
+        [SerializeField] 
+        private float jumpHeight = 8f;
+        
+        [SerializeField] 
+        private float rotSpeed = 7f;
 
-    [SerializeField] 
-    private float fallingOffset = 0.1f;
+        [SerializeField] 
+        private float fallingOffset = 0.1f;
     
-    [SerializeField] 
-    private float hStairsOff = 0.3f;
+        
+    [Header("Stairs and obstacle")]
+        [SerializeField] 
+        private float hStairsOff = 0.3f;
+        
+        [SerializeField] 
+        private float vStairsOff = 0.4f;
+        
+        [SerializeField] 
+        private float stairsUpSpeed = 1f;
     
-    [SerializeField] 
-    private float vStairsOff = 0.4f;
-    
-    [SerializeField] 
-    private float stairsUpSpeed = 1f;
-    
-    [SerializeField] 
-    private float lerpCameraSpeed = 2f;
+        
+    [Header("Camera control when swimming")]
+        [SerializeField] 
+        private float lerpCameraSpeed = 2f;
 
-    [SerializeField] 
-    private Camera myCamera;
-    
-    [SerializeField] 
-    private CinemachineOrbitalFollow cinemachineCamera;
+        [SerializeField] 
+        private Camera myCamera;
+        
+        [SerializeField] 
+        private CinemachineOrbitalFollow cinemachineCamera;
 
-    [SerializeField]
-    private AudioClip grassFootstep1;
+    [Header("Footsteps")]
+        [SerializeField]
+        private AudioClip grassFootstep1;
+        
+        [SerializeField]
+        private AudioClip grassFootstep2;
+        
+        [SerializeField]
+        private AudioClip stoneFootstep1;
+        
+        [SerializeField]
+        private AudioClip stoneFootstep2;
+        
+        [SerializeField]
+        private AudioClip woodFootstep1;
+        
+        [SerializeField]
+        private AudioClip woodFootstep2;
+        
+        [SerializeField]
+        private AudioClip grabbingClip;
+        
+        [SerializeField]
+        private float _pitchRandomInterval = 0.2f;
     
-    [SerializeField]
-    private AudioClip grassFootstep2;
-    
-    [SerializeField]
-    private AudioClip stoneFootstep1;
-    
-    [SerializeField]
-    private AudioClip stoneFootstep2;
-    
-    [SerializeField]
-    private AudioClip woodFootstep1;
-    
-    [SerializeField]
-    private AudioClip woodFootstep2;
-    
-    [SerializeField]
-    private float _pitchRandomInterval = 0.2f;
-    
-    [SerializeField]
-    private float _attackRange = 2f;
-    
-    [FormerlySerializedAs("_swordAudioSource")] [SerializeField]
-    private AudioSource swordAudioSource;
+    [Header("Combat system")]    
+        [SerializeField]
+        private float _attackRange = 2f;
+
+        [SerializeField]
+        private float attackRadiusDegree = 90f;
+        
+        [FormerlySerializedAs("_swordAudioSource")] [SerializeField]
+        private AudioSource swordAudioSource;
     
     void Start()
     {
@@ -142,6 +155,29 @@ public class PlayerControllerRigid : MonoBehaviour
         {
             if (IsMoving())
             {
+                //play in loop in grabbing
+                if (_isGrabbing)
+                {
+                    if (_audioSource.isPlaying)
+                    {
+                        if (_audioSource.resource == grabbingClip)
+                            return;
+                        
+                        _audioSource.Stop();
+                    }
+
+                    if (_audioSource.resource != grabbingClip)
+                        _audioSource.resource = grabbingClip;
+
+                    _audioSource.loop = true;
+                    _audioSource.Play();
+                    return;
+                }
+                
+                //play footsteps if not grabbing
+                if (_audioSource.loop)
+                    _audioSource.loop = false;
+                
                 if (_isRunning)
                     _walkDelaySound = 0;
                 else
@@ -190,6 +226,12 @@ public class PlayerControllerRigid : MonoBehaviour
                     _isFootstep1 = !_isFootstep1;
                 }
                 
+            }
+
+            if (_audioSource.loop && _audioSource.isPlaying && _audioSource.resource == grabbingClip)
+            {
+                _audioSource.Stop();
+                _audioSource.loop = false;
             }
         }
     }
@@ -461,7 +503,7 @@ public class PlayerControllerRigid : MonoBehaviour
                 float dot = Vector3.Dot(forward, toEnemy.normalized);
                 
                 //if (angle < 75f)
-                if (dot > Mathf.Cos(90 * Mathf.Deg2Rad))
+                if (dot > Mathf.Cos(attackRadiusDegree * Mathf.Deg2Rad))
                 {
                     print("Enemy added to possible target");
                     if(!_enemiesInRange.Contains(hit.GetComponent<EnemyAI>())) 

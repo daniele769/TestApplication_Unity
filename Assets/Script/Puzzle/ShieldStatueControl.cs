@@ -5,6 +5,12 @@ public class ShieldStatueControl : AbstractInteractableObject
     [SerializeField]
     private HolyBarrierPuzzleControl puzzleControl;
     
+    [SerializeField] 
+    private AudioClip correctPuzzleClip;
+    
+    [SerializeField] 
+    private AudioClip wrongPuzzleClip;
+    
     private AudioSource _audioSource;
     
     void Start()
@@ -25,8 +31,14 @@ public class ShieldStatueControl : AbstractInteractableObject
             transform.Find(Constants.ShieldStatue).gameObject.SetActive(true);
             popupInteraction.canvas.enabled = false;
             CollectableItemManager.Instance.RemoveShield();
+            _audioSource.resource = correctPuzzleClip;
             _audioSource.Play();
             this.enabled = false;
+        }
+        else
+        {
+            _audioSource.resource = wrongPuzzleClip;
+            _audioSource.Play();
         }
     }
 }
