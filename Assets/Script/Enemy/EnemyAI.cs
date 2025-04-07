@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -28,8 +29,10 @@ public class EnemyAI : MonoBehaviour
     private bool _isAttacking;
     private int _hitTaken = 0;
     private AudioSource _audioSource;
+    private AudioSource _spatialAudioSource;
     private bool _isChaseAlreadyStarted;
     private bool _isDeath;
+    private Coroutine _idleSoundCoroutine;
 
     [SerializeField] 
     private float _distanceForNextPatrolPosition = 15f;
@@ -94,7 +97,13 @@ public class EnemyAI : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _audioSource = GetComponent<AudioSource>();
         _currentAIState = AIState.Patrol;
+        _spatialAudioSource = this.AddComponent<AudioSource>();
 
+        _spatialAudioSource.spatialBlend = 1f;
+        _spatialAudioSource.minDistance = 1f;
+        _spatialAudioSource.maxDistance = 30f;
+        _spatialAudioSource.outputAudioMixerGroup = _audioSource.outputAudioMixerGroup;
+        _spatialAudioSource.resource = idleClip;
         _defaultAcceleration = _agent.acceleration;
         _defaultSpeed = _agent.speed;
     }
@@ -138,15 +147,8 @@ public class EnemyAI : MonoBehaviour
             return;   
         }
 
-        if (_audioSource.resource != idleClip)
-        {
-            _audioSource.Stop();
-            _audioSource.resource = idleClip;
-        }
-        else if (!_audioSource.isPlaying)
-        {
-            _audioSource.PlayDelayed(Random.Range(8, 16));
-        }
+        if(_idleSoundCoroutine == null)
+            _idleSoundCoroutine = StartCoroutine(PlayIdleSound());
         
         if (_destinationFounded && _agent.velocity.sqrMagnitude == 0 && !_isWaitingForNextPatrol)
         {
@@ -173,9 +175,7 @@ public class EnemyAI : MonoBehaviour
             if (!_isChaseAlreadyStarted)
             {
                 _isChaseAlreadyStarted = true;
-                _audioSource.Stop();
-                _audioSource.resource = chaseClip;
-                _audioSource.Play();
+                PlaySound(chaseClip);
             }
         }
             
@@ -213,9 +213,7 @@ public class EnemyAI : MonoBehaviour
         
         if (!_isAttacking)
         {
-            _audioSource.Stop();
-            _audioSource.resource = attackClip;
-            _audioSource.Play();
+            PlaySound(attackClip);
             _animator.SetTrigger(Constants.AttackTrigger);
             _isAttacking = true;
             return;
@@ -226,6 +224,42 @@ public class EnemyAI : MonoBehaviour
         {
             _isAttacking = false;
         }
+    }
+
+    private IEnumerator PlayIdleSound()
+    {
+        int timeDelay = Random.Range(8, 16);
+        yield return new WaitForSeconds(timeDelay);
+        if (_audioSource.isPlaying)
+            yield break;
+        
+        print("Played idle sound from " + this.gameObject.name);
+        _spatialAudioSource.Play();
+        _idleSoundCoroutine = null;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        print("Play sound from : " + this.gameObject.name + "| clip = " + clip.name);
+        if (_idleSoundCoroutine != null)
+        {
+            StopCoroutine(_idleSoundCoroutine);
+            _idleSoundCoroutine = null;
+        }
+
+        if (_audioSource.isPlaying)
+        {
+            if (clip != deathClip)
+            {
+                return;
+            }
+            _audioSource.Stop();
+        }
+        
+        //_audioSource.PlayOneShot(clip);
+        if(_audioSource.resource != clip)
+            _audioSource.resource = clip;
+        _audioSource.Play();
     }
 
     private void CalcRandomPatrolPosition()
@@ -304,9 +338,7 @@ public class EnemyAI : MonoBehaviour
         {
             _isDeath = true;
             _animator.SetTrigger(Constants.IsDeath);
-            _audioSource.Stop();
-            _audioSource.resource = deathClip;
-            _audioSource.Play();
+            PlaySound(deathClip);
         }
     }
 

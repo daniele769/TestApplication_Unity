@@ -1,0 +1,10 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="GameCompleteBackground" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: center;">
+        <engine:GroupBox name="GameCompleteGroup" style="height: 100%; justify-content: center; display: none;">
+            <engine:Label text="Game Completed" style="color: rgb(255, 255, 255); font-size: 35px; -unity-font-style: bold; -unity-text-align: upper-center; justify-content: flex-start; align-self: center;" />
+            <engine:Label text="Thanks for playing!!!" style="align-self: center; color: rgb(255, 255, 255);" />
+            <engine:Label text="By Daniele Venafro" style="align-self: flex-end; color: rgb(255, 255, 255); position: absolute; bottom: 0; padding-top: 30px; padding-right: 30px; padding-bottom: 30px; padding-left: 30px; -unity-font-style: normal; -unity-font-definition: url(&quot;project://database/Assets/GPVFX_POTIONS%20PACK/TEMP/Apalu.ttf?fileID=12800000&amp;guid=eaa957f043e2649e3ba743fd4b161e94&amp;type=3#Apalu&quot;); font-size: 35px;" />
+            <engine:Label text="Press any button to go back to Menu" style="align-self: center; color: rgb(255, 255, 255); position: absolute; bottom: 132px;" />
+        </engine:GroupBox>
+    </engine:VisualElement>
+</engine:UXML>

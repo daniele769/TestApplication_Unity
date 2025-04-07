@@ -34,6 +34,9 @@ public class HolyBarrierPuzzleControl : MonoBehaviour
 
     private void OnCompleteAction()
     {
+        _isCompleted = false;
+        _puzzleCompleted = 0;
+        
         _audioSource.Play();
         StartCoroutine(DestroyBarrier());
     }
