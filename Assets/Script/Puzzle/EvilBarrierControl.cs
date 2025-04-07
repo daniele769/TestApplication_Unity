@@ -61,6 +61,7 @@ public class EvilBarrierControl : MonoBehaviour
 
         color.a = 0f;
         _material.color = color;
+        Destroy(this.gameObject);
     }
 
     public void AddPuzzleCompleted()

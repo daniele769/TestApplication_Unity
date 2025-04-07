@@ -3634,7 +3634,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.07928023, y: 0.00009718235, z: -0.000007728969, w: 0.9968524}
-  m_LocalPosition: {x: 58.05, y: 8.744999, z: -0.8900001}
+  m_LocalPosition: {x: 58.05, y: 8.7439995, z: -0.8900001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7299,7 +7299,7 @@ Transform:
   m_GameObject: {fileID: 502702483}
   serializedVersion: 2
   m_LocalRotation: {x: 0.07928022, y: 0.000097182354, z: -0.000007728964, w: 0.9968524}
-  m_LocalPosition: {x: 58.05, y: 8.744999, z: -0.8900001}
+  m_LocalPosition: {x: 58.05, y: 8.7439995, z: -0.8900001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13966,7 +13966,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8612441892538835712, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112190062}
   m_SourcePrefab: {fileID: 100100000, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
 --- !u!1001 &1064763515
 PrefabInstance:
@@ -14096,7 +14099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 004dcd7f8e7e7ae43a8f9498766abdf7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.915
+      value: 6.914
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 004dcd7f8e7e7ae43a8f9498766abdf7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16350,6 +16353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMenuVisible: 0
   uiDocument: {fileID: 0}
+  uiControlRoot: {fileID: 613771070}
 --- !u!114 &1218103396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29183,6 +29187,108 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6338325277534010236, guid: af9b294539a3daf4bbbd8852a4fd2632, type: 3}
   m_PrefabInstance: {fileID: 2110860477}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2112190056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8612441892538835712, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
+  m_PrefabInstance: {fileID: 1060749451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2112190062
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112190056}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -2010775739665784349, guid: d361f5219b5de0444a9bf10b69bf3d54, type: 2}
+  m_audioClip: {fileID: 8300000, guid: d0aa54a46ec469549bfb26addee6e5ca, type: 3}
+  m_Resource: {fileID: 8300000, guid: d0aa54a46ec469549bfb26addee6e5ca, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &2113875770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29913,6 +30019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EvilBarrier (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2066872126629504173, guid: eae5e4d1a8441ab49af3ba13b28de67c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30065,7 +30175,7 @@ PrefabInstance:
       objectReference: {fileID: 1814626433}
     - target: {fileID: 2000354028355434832, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
       propertyPath: firstOnlyDialogs.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2000354028355434832, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
       propertyPath: 'choiceTwoReply.Array.data[0]'
@@ -30106,14 +30216,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2000354028355434832, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
       propertyPath: 'firstOnlyDialogs.Array.data[7]'
-      value: If you go to the temple with the relics, maybe we can still have a future...
+      value: The monsters are on the two islands near us and there are three monsters
+        per  island.
       objectReference: {fileID: 0}
     - target: {fileID: 2000354028355434832, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
       propertyPath: 'firstOnlyDialogs.Array.data[8]'
-      value: please...become our new Hope.
+      value: If you go to the temple with the relics, maybe we can still have a future...
       objectReference: {fileID: 0}
     - target: {fileID: 2000354028355434832, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
       propertyPath: 'firstOnlyDialogs.Array.data[9]'
+      value: please...become our new Hope.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000354028355434832, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
+      propertyPath: 'firstOnlyDialogs.Array.data[10]'
       value: if you need help, I can sell you some potions for a few coins.
       objectReference: {fileID: 0}
     - target: {fileID: 8612441892538835712, guid: 7c3fbfeebcd305847b001003534fb04f, type: 3}
@@ -30341,6 +30456,10 @@ PrefabInstance:
     - target: {fileID: 2066872126629504173, guid: eae5e4d1a8441ab49af3ba13b28de67c, type: 3}
       propertyPath: m_Name
       value: EvilBarrier
+      objectReference: {fileID: 0}
+    - target: {fileID: 2066872126629504173, guid: eae5e4d1a8441ab49af3ba13b28de67c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

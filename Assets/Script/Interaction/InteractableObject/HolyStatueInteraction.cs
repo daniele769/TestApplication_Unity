@@ -35,9 +35,9 @@ public class HolyStatueInteraction : AbstractInteractableObject
     {
         if (_isDialogStarted)
         {
+            popupInteraction.canvas.enabled = false;
             if (_rootElementDialogManager.style.display == DisplayStyle.None)
             {
-                Time.timeScale = 0;
                 _playerInput.SwitchCurrentActionMap(Constants.ActionMapUI);
                 _playerInput.actions.FindAction(Constants.ActionCloseMenu).Disable();
                 _playerInput.actions.FindAction(Constants.ActionOpenMenu).Disable();
@@ -49,6 +49,7 @@ public class HolyStatueInteraction : AbstractInteractableObject
 
         if (_canGoBackToMenu)
         {
+            popupInteraction.canvas.enabled = false;
             if (Input.anyKeyDown)
             {
                 SceneManager.LoadScene(Constants.MainMenuScene);
@@ -58,14 +59,18 @@ public class HolyStatueInteraction : AbstractInteractableObject
 
     private IEnumerator FadeToGameCompleteView()
     {
+        popupInteraction.canvas.enabled = false;
         VisualElement background = gameCompleteView.rootVisualElement.Q<VisualElement>("GameCompleteBackground");
         Color color = background.style.backgroundColor.value;
+        float initialAlpha = color.a;
         float t = 0;
         
         while (t < fadeDuration)
         {
+            popupInteraction.canvas.enabled = false;
             t += Time.deltaTime;
-            color.a = Mathf.Lerp(color.a, 1f, t / fadeDuration);
+            float alpha = Mathf.Lerp(initialAlpha, 1f, t / fadeDuration);
+            color.a = alpha;
             background.style.backgroundColor = new StyleColor(color);
             yield return null;
         }
