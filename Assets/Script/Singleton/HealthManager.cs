@@ -10,7 +10,8 @@ public class HealthManager : MonoBehaviour
     public Action OnRecover;
     public event Action OnDeath;
 
-    private static float _damageValue;
+    private float _damageValue;
+    private bool _isDeath;
     
     [SerializeField]
     private float recoverValue = 50;
@@ -30,6 +31,7 @@ public class HealthManager : MonoBehaviour
             _damageValue = 0;
             OnDamage += MakeDamage;
             OnRecover += Recover;
+            OnDeath += () => { _isDeath = true; };
         }
         else
         {
@@ -39,7 +41,8 @@ public class HealthManager : MonoBehaviour
 
     private void MakeDamage()
     {
-        healthBar.Damage(_damageValue);
+        if(!_isDeath)
+            healthBar.Damage(_damageValue);
     }
     
     private void Recover()

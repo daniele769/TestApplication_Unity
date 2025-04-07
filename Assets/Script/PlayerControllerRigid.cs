@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public enum GroundType
 {
@@ -16,11 +18,13 @@ public class PlayerControllerRigid : MonoBehaviour
     private Rigidbody _body;
     private bool _isMoving;
     private bool _isRunning;
+    private bool _isGrouded;
     private bool _isSwimming;
     private bool _isInsideWater;
     private bool _isDeath;
     private bool _isGrabbing;
     private bool _isPulling;
+    private bool _isAttacking;
     private Vector2 _inputVector;
     private Vector3 _terrainNormal;
     private Animator _animator;
@@ -32,6 +36,9 @@ public class PlayerControllerRigid : MonoBehaviour
     private bool _isFootstep1;
     private float _walkDelaySound;
     private GroundType _groundType;
+    private List<EnemyAI> _enemiesInRange;
+    private bool _startedDelayForAttack;
+    private List<Collider> collidersHit;
     
     [SerializeField]
     private float walkSpeed = 5f;
@@ -87,6 +94,12 @@ public class PlayerControllerRigid : MonoBehaviour
     [SerializeField]
     private float _pitchRandomInterval = 0.2f;
     
+    [SerializeField]
+    private float _attackRange = 2f;
+    
+    [FormerlySerializedAs("_swordAudioSource")] [SerializeField]
+    private AudioSource swordAudioSource;
+    
     void Start()
     {
         _body = GetComponent<Rigidbody>();
@@ -94,10 +107,12 @@ public class PlayerControllerRigid : MonoBehaviour
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _playerInput = GetComponent<PlayerInput>();
         _audioSource = GetComponent<AudioSource>();
+        collidersHit = new List<Collider>();
 
         _isFootstep1 = true;
         _terrainNormal = Vector3.up;
         _defaultBottomHeightCinemachine = cinemachineCamera.Orbits.Bottom.Height;
+        _enemiesInRange = new List<EnemyAI>();
 
         HealthManager.Instance.OnDeath += () => 
         { 
@@ -278,14 +293,13 @@ public class PlayerControllerRigid : MonoBehaviour
 
     public bool CheckGround()
     {
-        bool isGrouded;
         RaycastHit hit;
         
         Vector3 pos = transform.position;
         pos.y += 0.25f;
         if(Physics.SphereCast(pos, 0.2f, Vector3.down, out hit, 0.5f + fallingOffset, ~0, QueryTriggerInteraction.Ignore))
         {
-            isGrouded = true;
+            _isGrouded = true;
             _terrainNormal = hit.normal;
             if (hit.transform.CompareTag("Stone"))
             {
@@ -300,11 +314,11 @@ public class PlayerControllerRigid : MonoBehaviour
         }
         else
         {
-            isGrouded = false;
+            _isGrouded = false;
             _terrainNormal = Vector3.up;
         }
 
-        return isGrouded;
+        return _isGrouded;
     }
     
     private void CheckFalling()
@@ -345,7 +359,7 @@ public class PlayerControllerRigid : MonoBehaviour
     
     public void OnSprint()
     {
-        if (CheckGround() && !_isSwimming && !_isGrabbing)
+        if (CheckGround() && !_isSwimming && !_isGrabbing && !_isAttacking)
         {
             _isRunning = !_animator.GetBool(Constants.IsRunning);
             _animator.SetBool(Constants.IsRunning, _isRunning);
@@ -354,7 +368,7 @@ public class PlayerControllerRigid : MonoBehaviour
 
     public void OnJump()
     {
-        if (CheckGround() && !_isSwimming && !_isGrabbing)
+        if (CheckGround() && !_isSwimming && !_isGrabbing && !_isAttacking)
         {
             //StartCoroutine(DelayCheckGrounded());
             _body.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
@@ -417,6 +431,107 @@ public class PlayerControllerRigid : MonoBehaviour
                 _body.MovePosition(_body.position + (transform.up * (stairsUpSpeed * Time.deltaTime)));
                 return;
             }
+        }
+    }
+
+    private void OnAttack()
+    {
+        if(_startedDelayForAttack)
+            return;
+        
+        if (!_isAttacking && !_isSwimming && !_isDeath && !_isRunning && _isGrouded && !_isGrabbing)
+        {
+            
+            StartCoroutine(WaitForNewSlash());
+            _isAttacking = true;
+            _animator.SetTrigger(Constants.AttackTrigger);
+            _enemiesInRange.Clear();
+            
+            foreach (Collider hit in collidersHit)
+            {
+                if(hit == null)
+                    continue;
+            
+                print("Enemy in range for attack");
+                
+                Vector3 toEnemy = hit.transform.position - transform.position;
+                toEnemy.y = 0;
+                Vector3 forward = transform.forward;
+                forward.y = 0;
+                float dot = Vector3.Dot(forward, toEnemy.normalized);
+                
+                //if (angle < 75f)
+                if (dot > Mathf.Cos(90 * Mathf.Deg2Rad))
+                {
+                    print("Enemy added to possible target");
+                    if(!_enemiesInRange.Contains(hit.GetComponent<EnemyAI>())) 
+                        _enemiesInRange.Add(hit.GetComponent<EnemyAI>());
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            print("Enemy detected");
+            if (!collidersHit.Contains(other))
+            {
+                collidersHit.Add(other);
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            print("Enemy detected");
+            if (!collidersHit.Contains(other))
+            {
+                collidersHit.Add(other);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            print("Enemy detected");
+            if (collidersHit.Contains(other))
+            {
+                collidersHit.Remove(other);
+            }
+        }
+    }
+
+    private IEnumerator WaitForNewSlash()
+    {
+        _startedDelayForAttack = true;
+        yield return new WaitForSeconds(0.5f);
+        _startedDelayForAttack = false;
+        while (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        {
+            yield return null;
+        }
+
+        _isAttacking = false;
+        print("isAttacking setted to false");
+    }
+
+    //Called by animation event
+    public void DealDamage()
+    {
+        print("Deal damage called");
+        foreach (EnemyAI enemy in _enemiesInRange)
+        {
+            if( (transform.position - enemy.transform.position).magnitude > _attackRange)
+                return;
+            print("Enemy hitted");
+            enemy.TakeDamage();
+            swordAudioSource.Play();
         }
     }
 

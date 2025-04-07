@@ -77,4 +77,9 @@ public class InputDeviceManager : MonoBehaviour
             focusEnabled = true;
         }
     }
+
+    public PlayerInput GetPlayerInput()
+    {
+        return playerInput;
+    }
 }

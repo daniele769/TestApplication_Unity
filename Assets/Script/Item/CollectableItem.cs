@@ -53,6 +53,9 @@ public class CollectableItem : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        if(other.isTrigger)
+            return;
+        
         if (other.CompareTag("Player"))
         {
             print("Player collect item: " + this.name);

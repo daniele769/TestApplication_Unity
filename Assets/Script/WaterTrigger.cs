@@ -35,6 +35,9 @@ public class WaterTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.isTrigger)
+            return;
+        
         if (other.CompareTag("Player"))
         {
             print("Player inside water");
@@ -55,6 +58,9 @@ public class WaterTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if(other.isTrigger)
+            return;
+        
         if (_playerController)
         {
             //PlayerControllerRigid playerController = other.GetComponent<PlayerControllerRigid>();
@@ -113,6 +119,9 @@ public class WaterTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if(other.isTrigger)
+            return;
+        
         if (other.CompareTag("Player"))
         {
             print("Player outside water");

@@ -17,6 +17,9 @@ public class DamageObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.isTrigger)
+            return;
+        
         if(other.CompareTag("Player"))
             HealthManager.Instance.InvokeDamage(damage);
     }
